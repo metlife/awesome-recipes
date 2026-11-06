@@ -30,6 +30,25 @@ Meal types are multi-select: `breakfast`, `lunch`, `dinner`, `dessert`, `snack`,
 
 Use **Settings → Labels** or the repository Issues label manager to create them. The extension pre-fills `recipe` and each chosen `meal:*` label. GitHub may omit or reject labels that have not been created, so configure them before capture. The JSON metadata is authoritative for structured data; the matching labels are a denormalized search aid. When editing meal types on an existing issue, update both the metadata and the `meal:*` labels so GitHub searches stay aligned. Ratings, priority and difficulty live in metadata/body only and do not create an unbounded label set.
 
+## Native issue type and issue fields (organization setup)
+
+GitHub issue types and issue fields are defined at the `metlife` organization level, not per repository. They are different from Projects fields and from issue-form body inputs, which are only body text. Issue fields cannot be set from an issue template or from a URL prefill, so the extension still pre-fills the body; set the native fields on the issue after submitting. The JSON metadata remains the portable copy.
+
+Creating these needs organization owner rights (REST scope `admin:org`; the current `gh` login lacks it, so this was not configured automatically). In **Organization settings → Planning → Issue types** and **Issue fields**, create:
+
+| Item | Kind | Values |
+|---|---|---|
+| `Recipe` | Issue type | Used by the `Recipe` template (`type: Recipe`) once it exists |
+| Meal types | Single select | breakfast, lunch, dinner, dessert, snack, other. Fields cannot be multi-select, so use the primary meal here and the `meal:*` labels for extra meals |
+| Rating | Number | 1–5 |
+| Try priority | Single select | low, medium, high (the existing org `Priority` field is a different scale) |
+| Difficulty | Single select | easy, medium, hard, unknown |
+| Active time (minutes) | Number | |
+| Total time (minutes) | Number | |
+| Servings | Number | |
+
+Leave a field empty when the value is unknown; never enter 0 for unknown.
+
 ## Search and upkeep
 
 - Browse issues labelled `recipe`; combine labels, for example `label:recipe label:meal:dinner`.

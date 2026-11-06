@@ -5,6 +5,9 @@ title: "[Recipe] "
 labels: recipe
 ---
 
+<!-- After submitting, set the native issue fields (Meal types, Rating, Try priority, Difficulty, Active time, Total time, Servings) in the issue sidebar once the org has created them. See README. -->
+
+
 <!-- recipe-metadata:v1
 {
   "schema": "awesome-recipes",
