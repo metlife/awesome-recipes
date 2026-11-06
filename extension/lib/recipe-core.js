@@ -215,6 +215,28 @@ export function labelsFor(draft) {
   return [RECIPE_LABEL, ...draft.mealTypes.map((type) => `meal:${type}`)];
 }
 
+const cap = (value) => value.charAt(0).toUpperCase() + value.slice(1);
+
+export function nativeFieldValues(draft) {
+  return [
+    ["Issue type", "Recipe"],
+    ["Meal types", draft.mealTypes.length ? cap(draft.mealTypes[0]) : null],
+    ["Rating", draft.rating],
+    ["Try priority", draft.priority ? cap(draft.priority) : null],
+    ["Difficulty", cap(draft.difficulty)],
+    ["Active time (minutes)", draft.activeTimeMinutes],
+    ["Total time (minutes)", draft.totalTimeMinutes],
+    ["Servings", draft.servings],
+  ];
+}
+
+// Issue fields cannot be prefilled by URL or template, so this text is for manual transfer after submitting.
+export function nativeFieldsText(draft) {
+  const lines = nativeFieldValues(draft).map(([name, value]) => `${name}: ${value ?? "(leave empty)"}`);
+  if (draft.mealTypes.length > 1) lines.push(`Additional meal types (use labels): ${draft.mealTypes.slice(1).map((t) => `meal:${t}`).join(", ")}`);
+  return lines.join("\n");
+}
+
 function escapeText(text) {
   return String(text).replace(/<|@|#(?=\d)/g, (char) =>
     char === "<" ? "&lt;" : char === "@" ? "&#64;" : "&#35;");

@@ -32,9 +32,9 @@ Use **Settings → Labels** or the repository Issues label manager to create the
 
 ## Native issue type and issue fields (organization setup)
 
-GitHub issue types and issue fields are defined at the `metlife` organization level, not per repository. They are different from Projects fields and from issue-form body inputs, which are only body text. Issue fields cannot be set from an issue template or from a URL prefill, so the extension still pre-fills the body; set the native fields on the issue after submitting. The JSON metadata remains the portable copy.
+GitHub issue types and issue fields are defined at the `metlife` organization level, not per repository. They are different from Projects fields and from issue-form body inputs, which are only body text. Issue fields cannot be set from an issue template or from a URL prefill, so the extension prefills only the body and labels. After "Prepare issue" it also shows a read-only **Issue field values** box (with a copy button) listing each value to enter in the issue sidebar after you submit; unknown values read "(leave empty)". The JSON metadata remains the portable copy and the authority until the fields exist.
 
-Creating these needs organization owner rights (REST scope `admin:org`; the current `gh` login lacks it, so this was not configured automatically). In **Organization settings → Planning → Issue types** and **Issue fields**, create:
+Creating the type and fields needs an organization owner (the REST create-issue-type endpoint requires org admin and, for classic tokens, the `admin:org` scope). The `ttyler01` account is an org admin, but the `gh` token in use (`GH_TOKEN`) has scopes `gist, project, read:org, repo, user, workflow` and the endpoint answers `404` with `X-Accepted-OAuth-Scopes: admin:org`, so nothing was created. Credentials were not changed. In **Organization settings → Planning → Issue types** and **Issue fields**, create:
 
 | Item | Kind | Values |
 |---|---|---|

@@ -1,6 +1,6 @@
 import {
   MEAL_TYPES, buildDuplicateSearchUrl, buildIssueUrl, createDraft, extractFromPage,
-  instructionsToText, parseRepo, textToInstructions,
+  instructionsToText, nativeFieldsText, parseRepo, textToInstructions,
 } from "../lib/recipe-core.js";
 
 const $ = (id) => document.getElementById(id);
@@ -117,6 +117,7 @@ $("generate").addEventListener("click", async () => {
   }
   const result = buildIssueUrl(draft, repo);
   $("body").value = result.fullBody;
+  $("fields").value = nativeFieldsText(draft);
   $("draft-panel").hidden = false;
   $("url-warning").textContent = result.warnings.join(" ");
   $("open").onclick = async () => {
@@ -140,6 +141,10 @@ $("generate").addEventListener("click", async () => {
   $("copy").onclick = async () => {
     await navigator.clipboard.writeText($("body").value);
     $("url-warning").textContent = "Complete issue body copied.";
+  };
+  $("copy-fields").onclick = async () => {
+    await navigator.clipboard.writeText($("fields").value);
+    $("url-warning").textContent = "Field values copied.";
   };
 });
 

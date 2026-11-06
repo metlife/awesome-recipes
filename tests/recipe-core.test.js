@@ -2,8 +2,17 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   buildDuplicateSearchUrl, buildIssueUrl, createDraft, extractFromPage, findRecipeNodes,
-  labelsFor, parseDuration, parseMetadata, parseRepo, parseSections, serializeIssueBody,
+  labelsFor, parseDuration, parseMetadata, parseRepo, parseSections, serializeIssueBody, nativeFieldsText,
 } from "../extension/lib/recipe-core.js";
+
+test("nativeFieldsText preserves values and never turns unknown into zero", () => {
+  const text = nativeFieldsText(createDraft({ title: "x", mealTypes: ["dinner", "snack"], rating: 4, priority: "high", difficulty: "easy", activeTimeMinutes: 0, servings: "4" }));
+  assert.match(text, /Meal types: Dinner/);
+  assert.match(text, /Rating: 4/);
+  assert.match(text, /Active time \(minutes\): \(leave empty\)/);
+  assert.match(text, /Servings: 4/);
+  assert.match(text, /meal:snack/);
+});
 
 const pageUrl = "https://food.test/page?utm_source=newsletter";
 const schema = {
