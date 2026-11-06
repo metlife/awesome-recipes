@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Weeknight Tomato Pasta - Recipe Capture Fixture</title>
+  <link rel="canonical" href="http://localhost:8000/tests/fixtures/recipe.html">
+  <meta property="og:image" content="http://localhost:8000/tests/fixtures/pasta.jpg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Recipe",
+        "name": "Weeknight Tomato Pasta",
+        "url": "http://localhost:8000/tests/fixtures/recipe.html",
+        "image": "http://localhost:8000/tests/fixtures/pasta.jpg",
+        "recipeIngredient": [
+          "200 g dried pasta",
+          "1 tbsp olive oil",
+          "2 cloves garlic, minced",
+          "400 g chopped tomatoes"
+        ],
+        "recipeInstructions": [
+          { "@type": "HowToStep", "text": "Boil the pasta until al dente." },
+          { "@type": "HowToStep", "text": "Warm oil and garlic, add tomatoes, and simmer for 10 minutes." },
+          { "@type": "HowToStep", "text": "Drain the pasta and toss with the sauce." }
+        ],
+        "prepTime": "PT10M",
+        "cookTime": "PT20M",
+        "totalTime": "PT30M",
+        "recipeYield": "2 servings"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <main>
+    <h1>Weeknight Tomato Pasta</h1>
+    <p>A small local fixture for checking recipe extraction without publishing anything.</p>
+    <p>Ingredients: dried pasta, olive oil, garlic and chopped tomatoes.</p>
+    <ol>
+      <li>Boil the pasta until al dente.</li>
+      <li>Warm oil and garlic, add tomatoes, and simmer for 10 minutes.</li>
+      <li>Drain the pasta and toss with the sauce.</li>
+    </ol>
+  </main>
+</body>
+</html>

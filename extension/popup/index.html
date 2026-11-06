@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Save recipe</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Save recipe</h1>
+      <p>Review the extracted details before opening GitHub. Nothing is submitted automatically.</p>
+    </header>
+    <p id="status" role="status">Reading the current page…</p>
+    <label>Recipe on this page
+      <select id="recipe-choice" hidden></select>
+    </label>
+    <label>GitHub repository (owner/name)
+      <input id="repo" value="metlife/awesome-recipes" autocomplete="off">
+    </label>
+    <label>Title <input id="title" maxlength="200"></label>
+    <label>Source URL <input id="source" type="url"></label>
+    <fieldset>
+      <legend>Meal type (choose any)</legend>
+      <div id="meal-types" class="checks"></div>
+    </fieldset>
+    <div class="columns">
+      <label>Personal rating
+        <select id="rating">
+          <option value="">Not rated</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+        </select>
+      </label>
+      <label>Priority to try
+        <select id="priority"><option value="">Not set</option><option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option></select>
+      </label>
+    </div>
+    <div class="columns">
+      <label>Difficulty
+        <select id="difficulty"><option value="unknown">Unknown</option><option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option></select>
+      </label>
+      <label>Active time (minutes)
+        <input id="active-time" type="number" min="1" step="1" placeholder="Unknown">
+      </label>
+    </div>
+    <div class="columns">
+      <label>Total time (minutes)
+        <input id="total-time" type="number" min="1" step="1" placeholder="Unknown">
+      </label>
+      <label>Servings <input id="servings"></label>
+    </div>
+    <label>Ingredients (one per line)
+      <textarea id="ingredients" rows="5"></textarea>
+    </label>
+    <label>Instructions (one step per line; optional section headings use ##)
+      <textarea id="instructions" rows="6"></textarea>
+    </label>
+    <label>Image URLs (one per line; links only, no upload)
+      <textarea id="images" rows="3"></textarea>
+    </label>
+    <label>Notes
+      <textarea id="notes" rows="3"></textarea>
+    </label>
+    <div id="warnings" aria-live="polite"></div>
+    <div class="actions">
+      <button id="generate" type="button">Prepare issue</button>
+      <button id="duplicate" class="secondary" type="button">Search possible duplicates</button>
+    </div>
+    <section id="draft-panel" hidden>
+      <label>Complete issue body (editable; copy if the URL was shortened)
+        <textarea id="body" rows="12"></textarea>
+      </label>
+      <button id="copy" class="secondary" type="button">Copy complete body</button>
+      <button id="open" type="button">Open GitHub issue form</button>
+      <p id="url-warning" class="warning"></p>
+    </section>
+  </main>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
