@@ -218,6 +218,8 @@ export function labelsFor(draft) {
 const cap = (value) => value.charAt(0).toUpperCase() + value.slice(1);
 
 export function nativeFieldValues(draft) {
+  const servings = draft.servings?.trim();
+  const numericServings = servings && /^(?:\d+(?:\.\d+)?|\.\d+)$/.test(servings) && Number(servings) > 0;
   return [
     ["Issue type", "Recipe"],
     ["Meal types", draft.mealTypes.length ? cap(draft.mealTypes[0]) : null],
@@ -226,13 +228,17 @@ export function nativeFieldValues(draft) {
     ["Difficulty", cap(draft.difficulty)],
     ["Active time (minutes)", draft.activeTimeMinutes],
     ["Total time (minutes)", draft.totalTimeMinutes],
-    ["Servings", draft.servings],
+    ["Servings", numericServings ? servings : null],
   ];
 }
 
-// Issue fields cannot be prefilled by URL or template, so this text is for manual transfer after submitting.
+// Issue fields cannot be prefilled by URL or template.
 export function nativeFieldsText(draft) {
-  const lines = nativeFieldValues(draft).map(([name, value]) => `${name}: ${value ?? "(leave empty)"}`);
+  const fields = nativeFieldValues(draft);
+  const lines = fields.map(([name, value]) => `${name}: ${value ?? "(leave empty)"}`);
+  if (draft.servings && fields.at(-1)[1] === null) {
+    lines.push(`Captured servings: ${draft.servings} (enter a number manually if known)`);
+  }
   if (draft.mealTypes.length > 1) lines.push(`Additional meal types (use labels): ${draft.mealTypes.slice(1).map((t) => `meal:${t}`).join(", ")}`);
   return lines.join("\n");
 }

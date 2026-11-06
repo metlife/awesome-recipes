@@ -143,8 +143,12 @@ $("generate").addEventListener("click", async () => {
     $("url-warning").textContent = "Complete issue body copied.";
   };
   $("copy-fields").onclick = async () => {
-    await navigator.clipboard.writeText($("fields").value);
-    $("url-warning").textContent = "Field values copied.";
+    try {
+      await navigator.clipboard.writeText($("fields").value);
+      $("url-warning").textContent = "Field values copied. Save them before opening GitHub.";
+    } catch (error) {
+      $("url-warning").textContent = `Could not copy field values: ${error.message}. Select and copy them manually.`;
+    }
   };
 });
 

@@ -14,6 +14,29 @@ test("nativeFieldsText preserves values and never turns unknown into zero", () =
   assert.match(text, /meal:snack/);
 });
 
+test("native field transfer uses configured names and option values", () => {
+  const text = nativeFieldsText(createDraft({
+    mealTypes: ["breakfast", "dessert"], rating: 5, priority: "medium", difficulty: "hard",
+    activeTimeMinutes: 10, totalTimeMinutes: 25, servings: "4",
+  }));
+  assert.equal(text, [
+    "Issue type: Recipe", "Meal types: Breakfast", "Rating: 5", "Try priority: Medium",
+    "Difficulty: Hard", "Active time (minutes): 10", "Total time (minutes): 25",
+    "Servings: 4", "Additional meal types (use labels): meal:dessert",
+  ].join("\n"));
+});
+
+test("native field transfer retains textual yields without presenting them as numbers", () => {
+  const numeric = nativeFieldsText(createDraft({ servings: "2.5" }));
+  assert.match(numeric, /^Servings: 2\.5$/m);
+  for (const servings of ["4 servings", "2-4", "0", "several"]) {
+    const text = nativeFieldsText(createDraft({ servings }));
+    assert.match(text, /^Servings: \(leave empty\)$/m);
+    assert.ok(text.includes(`Captured servings: ${servings} (enter a number manually if known)`));
+  }
+  assert.match(nativeFieldsText(createDraft()), /^Servings: \(leave empty\)$/m);
+});
+
 const pageUrl = "https://food.test/page?utm_source=newsletter";
 const schema = {
   "@context": "https://schema.org",
