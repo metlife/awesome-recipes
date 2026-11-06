@@ -1,0 +1,22 @@
+:root { color-scheme: light dark; font: 14px/1.45 system-ui, sans-serif; }
+* { box-sizing: border-box; }
+body { margin: 0; width: 390px; max-height: 640px; overflow: auto; }
+main { padding: 16px; }
+h1 { margin: 0; font-size: 20px; }
+header p { color: #777; margin: 4px 0 14px; }
+label { display: block; font-weight: 600; margin: 11px 0; }
+label input, label textarea, label select { display: block; width: 100%; margin-top: 4px; font: inherit; }
+input, textarea, select { border: 1px solid #8888; border-radius: 4px; padding: 7px; }
+textarea { resize: vertical; }
+fieldset { border: 1px solid #8888; border-radius: 4px; margin: 10px 0; }
+legend { font-weight: 600; }
+.checks { display: flex; flex-wrap: wrap; gap: 4px 12px; }
+.checks label { font-weight: 400; margin: 2px 0; }
+.checks input { display: inline; width: auto; }
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+button { cursor: pointer; border: 0; border-radius: 4px; background: #0969da; color: white; font: inherit; font-weight: 650; padding: 9px 12px; }
+button.secondary { background: #6e7781; }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.warning { color: #9a6700; }
+#status { padding: 8px; background: #8882; border-radius: 4px; }
+#warnings { white-space: pre-line; color: #9a6700; }
